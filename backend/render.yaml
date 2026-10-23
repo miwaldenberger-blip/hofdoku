@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: hofdoku-backend
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hofdoku-db
+          property: connectionString
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+
+databases:
+  - name: hofdoku-db
+    plan: basic-256mb

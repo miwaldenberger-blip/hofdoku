@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-papier text-tinte font-sans antialiased;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-stempel;
+  }
+}
+
+@layer components {
+  /* Etikettenzettel: Lochung links, Abrisskante unten */
+  .zettel {
+    @apply relative bg-blatt border border-linie rounded-t-[4px] rounded-b-karte
+           pl-8 pr-4 py-3 text-left w-full transition-colors;
+  }
+  .zettel::before {
+    content: "";
+    @apply absolute left-3 top-4 w-[9px] h-[9px] rounded-full bg-papier border border-linie;
+  }
+  .zettel::after {
+    content: "";
+    @apply absolute left-0 right-0 bottom-0 h-[5px] rounded-b-karte;
+    background: repeating-linear-gradient(90deg, #d5d7cc 0 4px, transparent 4px 9px);
+  }
+  .zettel:hover {
+    @apply border-stempel;
+  }
+
+  .marke {
+    @apply font-mono text-[10.5px] uppercase tracking-wider px-2 py-[3px] rounded-full;
+  }
+  .karte {
+    @apply bg-blatt border border-linie rounded-karte;
+  }
+  .eyebrow {
+    @apply font-mono text-[11px] uppercase tracking-[0.1em] text-weich;
+  }
+  .feld {
+    @apply border border-linie rounded-[11px] bg-white px-3 py-2 text-tinte
+           placeholder:text-weich/70 focus:outline-none focus:ring-2 focus:ring-stempel;
+  }
+  .knopf-haupt {
+    @apply w-full rounded-[11px] bg-tinte py-3 font-semibold text-blatt
+           disabled:opacity-40 transition-opacity;
+  }
+  .knopf-klein {
+    @apply border border-tinte rounded-[9px] px-3.5 py-2 text-[13px] font-semibold
+           hover:bg-tinte hover:text-blatt transition-colors;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
